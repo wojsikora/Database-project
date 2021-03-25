@@ -1,2 +1,2 @@
 # Database-project
-3D Printer website
+Website which allow placing orders for 3D printers.
