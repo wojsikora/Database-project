@@ -9,6 +9,6 @@ import java.util.List;
 @Repository
 public interface ArticleRepository extends JpaRepository<Article, Long> {
 
-  List<Article> findArticleById(long id);
+  Article findArticleById(long id);
 
 }
