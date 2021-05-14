@@ -28,20 +28,20 @@ Z perspektywy klienta:
 
    -    specyfikowanie parametrów wydruku (m. in. grubość warstwy, rodzaj materiału, wypełnienie),
 
-    -    automatyczna wycena zamówienia na podstawie projektu w pliku STL,
+   -    automatyczna wycena zamówienia na podstawie projektu w pliku STL,
 
-     -   zapis historii wydruków danego klienta,
+   -   zapis historii wydruków danego klienta,
 
-      -  *możliwość płatności online,
+   -  *możliwość płatności online,
 
-       - wybór opcji dostawy wydruku;
+   - wybór opcji dostawy wydruku;
 
-    - składanie zapytania o wycenę:
-    -  załączanie plików graficznych itp.,
+   - składanie zapytania o wycenę:
+   -  załączanie plików graficznych itp.,
 
-    - specyfikowanie parametrów wydruku,
+   - specyfikowanie parametrów wydruku,
 
-    - zapisywanie zapytań w historii klienta.
+   - zapisywanie zapytań w historii klienta.
 
 
 Z perspektywy osoby zarządzającej:
