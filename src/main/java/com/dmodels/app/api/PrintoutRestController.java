@@ -1,40 +1,93 @@
-package com.dmodels.app.controller;
+package com.dmodels.app.api;
+
+
+import com.dmodels.app.orders.model.Material;
 
 import com.dmodels.app.orders.model.Printout;
-import org.springframework.hateoas.CollectionModel;
-import org.springframework.hateoas.EntityModel;
-import org.springframework.http.ResponseEntity;
+import com.dmodels.app.orders.service.PrintoutService;
+
+import lombok.Builder;
+import lombok.Data;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import com.dmodels.app.orders.repository.PrintoutRepository;
+
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+import java.util.Date;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping(value = "/printout", produces = "application/hal+json")
+@RequestMapping("/printouts")
+@RequiredArgsConstructor
 public class PrintoutRestController {
 
-    final PrintoutRepository printoutRepository;
-
-
-    public PrintoutRestController(PrintoutRepository printoutRepository) {
-        this.printoutRepository = printoutRepository;
-    }
+    private final PrintoutService printoutService;
 
     @GetMapping
-    public ResponseEntity < CollectionModel<Printout> > all() {
-        return ResponseEntity.ok(CollectionModel.of(printoutRepository.findAll()));
+    public List<PrintoutRestController.PrintoutResponse> findAll(@PathVariable Long printoutId) {
+        return printoutService.findAll()
+                .stream()
+                .map(PrintoutRestController.PrintoutResponse::fromPrintout)
+                .collect(Collectors.toList());
     }
-    @GetMapping("/{id}")
-    public ResponseEntity<EntityModel<Printout>> get(@PathVariable final long id) {
-        return ResponseEntity.ok(EntityModel.of(printoutRepository.findPrintoutById(id)));
-    }
-    @PostMapping
-    public ResponseEntity < EntityModel<Printout> > post(@RequestBody final Printout printoutFromRequest) {
-        //final Printout printout = new Printout(printoutFromRequest);
 
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    public PrintoutRestController.PrintoutResponse createPrintout(@RequestBody @Valid PrintoutRestController.CreatePrintoutRequest request) {
+        final Printout printout = printoutService.createPrintout(request.toPrintout());
+        return PrintoutRestController.PrintoutResponse.fromPrintout(printout);
     }
-    @PutMapping("/{id}") public ResponseEntity<EntityModel<Printout>> put(@PathVariable("id") final long id, @RequestBody Printout personFromRequest) {
-        // PUT
+
+    @Data
+    @Builder
+    static class PrintoutResponse {
+
+        private Long id;
+        private Material material;
+        private Double layerThickness;
+        private Double wallThickness;
+        private Boolean permission;
+
+
+        static PrintoutResponse fromPrintout(Printout printout) {
+            return PrintoutResponse.builder()
+                    .id(printout.getId())
+                    .material(printout.getMaterial())
+                    .layerThickness(printout.getLayerThickness())
+                    .wallThickness(printout.getWallThickness())
+                    .permission(printout.getPermission())
+                    .build();
+
+
+        }
     }
-    @DeleteMapping("/{id}") public ResponseEntity < EntityModel<Printout >> delete(@PathVariable("id") final long id) {
-        // DELETE
+
+    @Data
+    static class CreatePrintoutRequest {
+
+
+        private Material material;
+        private Double layerThickness;
+        private Double wallThickness;
+        @NotNull
+        private Boolean permission;
+
+
+
+
+        Printout toPrintout() {
+            Printout printout = new Printout(
+                    this.material,
+                    this.layerThickness,
+                    this.wallThickness,
+                    this.permission
+            );
+
+            return printout;
+
+        }
     }
+
 }

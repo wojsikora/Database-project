@@ -12,12 +12,13 @@ import java.util.Date;
 @Entity
 @Data
 @NoArgsConstructor
-@Table(name = "Order")
+@Table(name = "ORDERS")
 public class Order {
-    @Id@GeneratedValue(strategy = GenerationType.AUTO)
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @OneToOne
+    @ManyToOne
     private User user;
     private Date orderDate;
     private Date implementDate;
@@ -25,13 +26,13 @@ public class Order {
     @OneToOne
     private Printout printout;
 
-    public Order(Long id, User user, Date orderDate, Date implementDate, Date realImplementDate, Printout printout)
+    public Order(User user, Date orderDate, Printout printout)
     {
         this.id = id;
         this.user = user;
         this.orderDate = orderDate;
-        this.implementDate = implementDate;
-        this.realImplementDate = realImplementDate;
+        //this.implementDate = implementDate;
+        //this.realImplementDate = realImplementDate;
         this.printout = printout;
     }
 
