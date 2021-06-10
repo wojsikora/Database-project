@@ -42,6 +42,6 @@ public class User {
     }
 
     public void addRoles(Collection<Role> roles){
-        roles.forEach(role -> this.roleSet.add(role));
+        this.roleSet.addAll(roles);
     }
 }
