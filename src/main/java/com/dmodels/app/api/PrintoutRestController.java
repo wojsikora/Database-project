@@ -46,8 +46,8 @@ public class PrintoutRestController {
 
         private Long id;
         private Material material;
-        private Double layerThickness;
-        private Double wallThickness;
+        private String filling;
+        private String resolution;
         private Boolean permission;
 
 
@@ -55,8 +55,8 @@ public class PrintoutRestController {
             return PrintoutResponse.builder()
                     .id(printout.getId())
                     .material(printout.getMaterial())
-                    .layerThickness(printout.getLayerThickness())
-                    .wallThickness(printout.getWallThickness())
+                    .filling(printout.getFilling())
+                    .resolution(printout.getResolution())
                     .permission(printout.getPermission())
                     .build();
 
@@ -69,8 +69,8 @@ public class PrintoutRestController {
 
 
         private Material material;
-        private Double layerThickness;
-        private Double wallThickness;
+        private String filling;
+        private String resolution;
         @NotNull
         private Boolean permission;
 
@@ -80,8 +80,8 @@ public class PrintoutRestController {
         Printout toPrintout() {
             Printout printout = new Printout(
                     this.material,
-                    this.layerThickness,
-                    this.wallThickness,
+                    this.filling,
+                    this.resolution,
                     this.permission
             );
 

@@ -18,17 +18,19 @@ public class Printout {
 
     @Embedded
     private Material material;
-    private Double layerThickness;
-    private Double wallThickness;
+    //private Double layerThickness;
+    //private Double wallThickness;
+    private String filling;
+    private String resolution;
     private Boolean permission;
-    //plik stl
 
-    public Printout(Material material, Double layerThickness, Double wallThickness, Boolean permission)
+
+    public Printout(Material material, String filling, String resolution, Boolean permission)
     {
         //this.id = id;
         this.material = material;
-        this.layerThickness = layerThickness;
-        this.wallThickness = wallThickness;
+        this.filling = filling;
+        this.resolution = resolution;
         this.permission = permission;
     }
 }
