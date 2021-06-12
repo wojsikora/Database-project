@@ -23,7 +23,7 @@ public class BusinessCustomerService {
         return businessCustomerRepository.findById(id);
     }
 
-    public Customer createCustomer(BusinessCustomer customer) {
+    public BusinessCustomer createCustomer(BusinessCustomer customer) {
         return businessCustomerRepository.save(customer);
     }
 }

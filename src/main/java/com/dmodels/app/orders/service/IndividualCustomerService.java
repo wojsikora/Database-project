@@ -26,7 +26,7 @@ public class IndividualCustomerService {
         return individualCustomerRepository.findById(id);
     }
 
-    public Customer createCustomer(IndividualCustomer customer) {
+    public IndividualCustomer createCustomer(IndividualCustomer customer) {
         return individualCustomerRepository.save(customer);
     }
 }

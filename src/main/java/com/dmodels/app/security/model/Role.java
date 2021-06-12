@@ -25,10 +25,14 @@ public class Role {
     private String name;
 
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    Collection<User> users = new HashSet<>();
+    private Collection<User> users = new HashSet<>();
 
     public Role(String name){
         this.name = name;
+    }
+
+    public void addUser(User user){
+        this.users.add(user);
     }
 
     @Override

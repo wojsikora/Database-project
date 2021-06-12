@@ -2,6 +2,7 @@ package com.dmodels.app.api;
 
 import com.dmodels.app.security.model.Role;
 import com.dmodels.app.security.model.User;
+import com.dmodels.app.security.repository.RoleRepository;
 import com.dmodels.app.security.repository.UserRepository;
 import com.dmodels.app.security.service.RoleService;
 import com.dmodels.app.security.service.UserService;
@@ -14,10 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
-import java.util.Collection;
-import java.util.Date;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @RestController
@@ -49,7 +47,7 @@ public class UserController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public UserResponse createUser(@RequestBody @Valid CreateUserRequest request){
-        final User user = userService.createUser(request.toUser());
+        final User user = userService.createUser(request.toUser(roleService));
         return UserResponse.fromUser(user);
     }
 
@@ -60,14 +58,14 @@ public class UserController {
         private UUID id;
         private String username;
         private String email;
-        private Collection<Role> roles;
+        private Collection<String> roles;
 
         static UserResponse fromUser(User user) {
             return UserResponse.builder()
                     .id(user.getId())
                     .username(user.getUsername())
                     .email(user.getEmail())
-                    .roles(user.getRoleSet()).build();
+                    .roles(user.getRoleSet().stream().map(Role::getName).collect(Collectors.toList())).build();
         }
 
     }
@@ -85,16 +83,27 @@ public class UserController {
         @Pattern(regexp = ".*@.*")
         private String email;
 
-        Collection<Role> roles;
+        Collection<String> rolesNames;
 
-        User toUser() {
+        Collection<Role> getRoles(RoleService roleService){
+            Collection<Role> roles = new HashSet<Role>();
+            System.out.println(rolesNames);
+            for(String roleName : this.rolesNames){
+                Role role = roleService.findRoleByName(roleName);
+                roles.add(Objects.requireNonNullElseGet(role, () -> new Role(roleName)));
+            }
+            return roles;
+        }
+
+        User toUser(RoleService roleService) {
             User user = new User(
                     this.username,
                     this.password,
                     this.email,
                     new Date()
             );
-            user.addRoles(roles);
+
+            user.addRoles(getRoles(roleService));
 
             return user;
         }

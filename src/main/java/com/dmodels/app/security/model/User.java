@@ -3,10 +3,7 @@ package com.dmodels.app.security.model;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.Collection;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.UUID;
+import java.util.*;
 
 
 @Data
@@ -27,8 +24,7 @@ public class User {
     @Column(unique = true)
     private String email;
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    //@ToString.Exclude
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "users")
     private Collection<Role> roleSet = new HashSet<>();
 
     private Date registrationDate;
@@ -43,5 +39,21 @@ public class User {
 
     public void addRoles(Collection<Role> roles){
         this.roleSet.addAll(roles);
+        for(Role role: roles){
+            role.addUser(this);
+        }
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof User)) return false;
+        User user = (User) o;
+        return Objects.equals(id, user.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }
