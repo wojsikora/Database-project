@@ -38,12 +38,8 @@ public class Order {
         this.customer = customer;
         this.orderDate = orderDate;
         this.implementDate = null;
+        this.toPrinted.add(printout);
     }
-
-
-
-
-
 }
 
 

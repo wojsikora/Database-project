@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -37,7 +38,8 @@ public class OrderRestController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public OrderResponse createOrder(@RequestBody @Valid CreateOrderRequest request) {
-        final Order order = orderService.createOrUpdateOrder(request.toOrder());
+        List<UUID> ids = request.toIdsList();
+        final Order order = orderService.createOrder(ids.get(0), ids.get(1));
         return OrderResponse.fromOrder(order);
     }
 
@@ -57,6 +59,7 @@ public class OrderRestController {
                     .id(order.getId())
                     .customer(order.getCustomer())
                     .orderDate(order.getOrderDate())
+                    .printout(order.getToPrinted().iterator().next())
                     .build();
 
         }
@@ -66,21 +69,33 @@ public class OrderRestController {
     static class CreateOrderRequest {
 
 
+//        @NotNull
+//        private Customer customer;
+//        @NotNull
+//        private Printout printout;
+
         @NotNull
-        private Customer customer;
+        private UUID customerId;
+
         @NotNull
-        private Printout printout;
+        private UUID printoutId;
 
-
-        Order toOrder() {
-
-            return new Order(
-                    this.customer,
-                    new Date(),
-                    this.printout
-
-
-            );
+        List<UUID> toIdsList(){
+            List<UUID> ids =  new LinkedList<UUID>();
+            ids.add(customerId);
+            ids.add(printoutId);
+            return ids;
         }
+
+//        Order toOrder() {
+//
+//            return new Order(
+//                    this.customer,
+//                    new Date(),
+//                    this.printout
+//
+//
+//            );
+//        }
     }
 }
