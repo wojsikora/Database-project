@@ -1,5 +1,6 @@
 package com.dmodels.app.security.model;
 
+import com.dmodels.app.orders.model.Customer;
 import lombok.*;
 
 import javax.persistence.*;
@@ -29,6 +30,9 @@ public class User {
 
     private Date registrationDate;
     private Date lastVisitDate;
+
+    @OneToOne
+    private Customer customer;
 
     public User(String username, String password, String email, Date registrationDate) {
         this.username = username;

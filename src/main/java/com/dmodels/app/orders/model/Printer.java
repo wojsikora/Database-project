@@ -15,7 +15,7 @@ import java.util.UUID;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "Printers")
+@Table(name = "PRINTERS")
 public class Printer {
 
     @Id
@@ -33,6 +33,7 @@ public class Printer {
     private Collection<MaterialCategory> materials = new HashSet<>();
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name="PRINTER_ID")
     private Collection<Plate> plates = new HashSet<>();
 
     public Printer(String name, Vector3D plateDimensions, Collection<MaterialCategory> materials){

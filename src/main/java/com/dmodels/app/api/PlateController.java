@@ -1,5 +1,6 @@
 package com.dmodels.app.api;
 
+import com.dmodels.app.orders.model.File;
 import com.dmodels.app.orders.model.Material;
 import com.dmodels.app.orders.model.Plate;
 import com.dmodels.app.orders.model.Printout;
@@ -12,7 +13,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -53,7 +53,8 @@ public class PlateController {
         private Material material;
         private String filling;
         private String resolution;
-        private Collection<Printout> printouts;
+        private File project;
+
 
         static PlateResponse fromPlate(Plate plate) {
             return PlateResponse.builder()
@@ -61,7 +62,7 @@ public class PlateController {
                     .material(plate.getPrintouts().iterator().next().getMaterial())
                     .filling(plate.getPrintouts().iterator().next().getFilling())
                     .resolution(plate.getPrintouts().iterator().next().getResolution())
-                    .printouts(new ArrayList<>(plate.getPrintouts())).build();
+                    .project(plate.getPrintouts().iterator().next().getFile()).build();
         }
 
     }

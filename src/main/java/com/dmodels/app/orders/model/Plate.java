@@ -12,7 +12,7 @@ import java.util.*;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "Plates")
+@Table(name = "PLATES")
 public class Plate {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -22,6 +22,7 @@ public class Plate {
     private Collection<Printout> printouts = new LinkedList<>();
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name="PRINTER_ID")
     private Printer printer;
 
     private Date generationDate;

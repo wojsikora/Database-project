@@ -16,9 +16,9 @@ import java.util.*;
 @RequiredArgsConstructor
 public class PlateService {
     private final PlateRepository plateRepository;
-    private PrinterService printerService;
-    private OrderService orderService;
-    private PrintoutService printoutService;
+    private final PrinterService printerService;
+    private final OrderService orderService;
+    private final PrintoutService printoutService;
 
 
     public Collection<Plate> findAll(){

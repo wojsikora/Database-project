@@ -27,8 +27,11 @@ public class Printout {
     private String resolution;
     private Boolean permission;
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "printouts")
     private Collection<Plate> plates = new HashSet<>();
+
+    @OneToOne
+    private File file;
 
     public Printout(Material material, String filling, String resolution, Boolean permission)
     {
@@ -37,5 +40,6 @@ public class Printout {
         this.filling = filling;
         this.resolution = resolution;
         this.permission = permission;
+        this.file = null;
     }
 }

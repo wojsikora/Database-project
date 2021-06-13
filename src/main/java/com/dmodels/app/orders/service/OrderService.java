@@ -39,7 +39,10 @@ public class OrderService {
         Optional<Customer> customer = customerService.findById(customerId);
         Optional<Printout> printout = printoutService.findPrintoutById(printoutId);
 
-        return new Order(customer.get(), new Date(), printout.get());
+        Order order =  new Order(customer.get(), new Date(), printout.get());
+
+        orderRepository.save(order);
+        return order;
     }
 
     public Order getOldestOrder(){
