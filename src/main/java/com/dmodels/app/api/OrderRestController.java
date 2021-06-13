@@ -12,10 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
-import java.util.Date;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @RestController
@@ -34,6 +31,45 @@ public class OrderRestController {
                 .map(OrderResponse::fromOrder)
                 .collect(Collectors.toList());
     }
+
+    @GetMapping("/not_realized")
+    public List<OrderResponse> findNotRealized() {
+        return orderService.findNotRealized()
+                .stream()
+                .map(OrderResponse::fromOrder)
+                .collect(Collectors.toList());
+    }
+
+    @GetMapping("/filtered")
+    public List<OrderResponse> findByCustomerId(@RequestParam(name = "customer_id") Optional<UUID> customer_id, @RequestParam(name = "price") Optional<Double> price, @RequestParam (name = "category") Optional<String> category, @RequestParam(name = "color") Optional<String> color) {
+        Set<Order> res = new HashSet<>(orderService.findAll());
+
+        if(customer_id.isPresent()){
+            Set<Order> tmp = new HashSet<>(orderService.findByCustomerId(customer_id.get()));
+            res.retainAll(tmp);
+        }
+
+        if(price.isPresent()){
+            Set<Order> tmp = new HashSet<>(orderService.findByPrintoutMaterialPriceLessThan(price.get()));
+            res.retainAll(tmp);
+        }
+
+        if(category.isPresent()){
+            Set<Order> tmp = new HashSet<>(orderService.findByPrintoutMaterialCategory(category.get()));
+            res.retainAll(tmp);
+        }
+
+        if(color.isPresent()){
+            Set<Order> tmp = new HashSet<>(orderService.findByPrintoutMaterialColor(color.get()));
+            res.retainAll(tmp);
+        }
+
+        return res
+                .stream()
+                .map(OrderResponse::fromOrder)
+                .collect(Collectors.toList());
+    }
+
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)

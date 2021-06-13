@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -49,7 +50,7 @@ public class PrintoutRestController {
         private String filling;
         private String resolution;
         private Boolean permission;
-        private Vector3D dimensions;
+        private Double[] dimensions;
 
 
         static PrintoutResponse fromPrintout(Printout printout) {
@@ -59,7 +60,7 @@ public class PrintoutRestController {
                     .filling(printout.getFilling())
                     .resolution(printout.getResolution())
                     .permission(printout.getPermission())
-                    .dimensions(printout.getDimensions())
+                    .dimensions(printout.getDimensions().toArray())
                     .build();
 
 
@@ -82,15 +83,16 @@ public class PrintoutRestController {
         Printout toPrintout() {
             Material material = new Material(this.category, this.color, this.price);
 
-            Printout printout = new Printout(
+            System.out.println(material);
+            System.out.println(dimensions.length);
+
+            return new Printout(
                     material,
                     this.filling,
                     this.resolution,
                     this.permission,
                     new Vector3D(dimensions[0],dimensions[1], dimensions[2] )
             );
-
-            return printout;
 
         }
     }

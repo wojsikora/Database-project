@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.aspectj.weaver.ast.Or;
 import org.springframework.stereotype.Service;
 
+import java.nio.channels.Pipe;
 import java.util.*;
 
 @Service
@@ -44,5 +45,44 @@ public class OrderService {
 
     public Collection<Order> getOldestOrder(){
         return orderRepository.findByImplementDateIsNullOrderByOrderDate();
+    }
+
+    public Collection<Order> findNotRealized(){
+        return orderRepository.findByImplementDateIsNull();
+    }
+
+    public Collection<Order> findByCustomerId(UUID customerId){
+        return orderRepository.findByCustomer_Id(customerId);
+    }
+
+    public Collection<Order> findByPrintout(Printout printout){
+        return orderRepository.findByToPrintedContainsOrAlreadyPrintedContains(printout, printout);
+    }
+
+    public Collection<Order> findByPrintoutMaterialPriceLessThan(Double price){
+        Collection<Printout> printouts = printoutService.findByMaterialPriceLessThan(price);
+        Collection<Order> results = new LinkedList<>();
+        for(Printout printout : printouts){
+            results.addAll(this.findByPrintout(printout));
+        }
+        return results;
+    }
+
+    public Collection<Order> findByPrintoutMaterialCategory(String materialCategory){
+        Collection<Printout> printouts = printoutService.findByMaterialCategory(materialCategory);
+        Collection<Order> results = new LinkedList<>();
+        for(Printout printout : printouts){
+            results.addAll(this.findByPrintout(printout));
+        }
+        return results;
+    }
+
+    public Collection<Order> findByPrintoutMaterialColor(String materialColor){
+        Collection<Printout> printouts = printoutService.findByMaterialColor(materialColor);
+        Collection<Order> results = new LinkedList<>();
+        for(Printout printout : printouts){
+            results.addAll(this.findByPrintout(printout));
+        }
+        return results;
     }
 }
