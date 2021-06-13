@@ -1,6 +1,7 @@
 package com.dmodels.app.api;
 
 import com.dmodels.app.orders.model.Customer;
+import com.dmodels.app.orders.model.Material;
 import com.dmodels.app.orders.model.Order;
 import com.dmodels.app.orders.model.Printout;
 import com.dmodels.app.orders.service.OrderService;
@@ -87,7 +88,8 @@ public class OrderRestController {
         private UUID id;
         private Customer customer;
         private Date orderDate;
-        private Printout printout;
+        private List<PrintoutRestController.PrintoutResponse> toPrint;
+        private List<PrintoutRestController.PrintoutResponse> alreadyPrinted;
 
 
         static OrderResponse fromOrder(Order order) {
@@ -95,10 +97,12 @@ public class OrderRestController {
                     .id(order.getId())
                     .customer(order.getCustomer())
                     .orderDate(order.getOrderDate())
-                    .printout(order.getToPrinted().iterator().next())
+                    .toPrint(order.getToPrinted().stream().map(PrintoutRestController.PrintoutResponse::fromPrintout).collect(Collectors.toList()))
+                    .alreadyPrinted(order.getAlreadyPrinted().stream().map(PrintoutRestController.PrintoutResponse::fromPrintout).collect(Collectors.toList()))
                     .build();
 
         }
+
     }
 
     @Data

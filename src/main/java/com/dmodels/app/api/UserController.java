@@ -37,10 +37,7 @@ public class UserController {
 
     @GetMapping("/{name}")
     public List<UserResponse> findByRole(@PathVariable String name){
-
-        System.out.println(name);
         final Role role = roleService.findRoleByName(name);
-        System.out.println(role);
         return userService.findByRole(role).stream().map(UserResponse::fromUser).collect(Collectors.toList());
     }
 

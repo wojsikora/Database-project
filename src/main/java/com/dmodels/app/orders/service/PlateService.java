@@ -43,11 +43,12 @@ public class PlateService {
         Collection<Order> oldestOrders = orderService.getOldestOrder();
         Order oldestOrder = null;
 
-        while (oldestOrders.iterator().hasNext()){
-            Order tmp = oldestOrders.iterator().next();
+        for (Order tmp : oldestOrders){
+            System.out.println("iter");
             assert printer != null;
             if(tmp.getToPrinted().iterator().next().getDimensions().lowerThan(printer.getPlateDimensions())){
                 oldestOrder = tmp;
+                break;
             }
         }
 

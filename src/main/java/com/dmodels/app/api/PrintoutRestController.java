@@ -27,7 +27,7 @@ public class PrintoutRestController {
     private final PrintoutService printoutService;
 
     @GetMapping
-    public List<PrintoutRestController.PrintoutResponse> findAll(@PathVariable UUID printoutId) {
+    public List<PrintoutRestController.PrintoutResponse> findAll() {
         return printoutService.findAll()
                 .stream()
                 .map(PrintoutRestController.PrintoutResponse::fromPrintout)
