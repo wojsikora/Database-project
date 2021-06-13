@@ -1,0 +1,480 @@
+{
+	"info": {
+		"_postman_id": "a4418754-9d88-4942-bc8d-daf714376c49",
+		"name": "zapytania_testowe",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "addBusinessCustomer",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Firma 2\",\n    \"tin\": \"2222222222\",\n    \"email\": \"firma2@email.com\",\n    \"phoneNumber\": \"234234234\",\n    \"city\": \"Kraków\",\n    \"postalCode\": \"12-123\",\n    \"street\": \"Długa\",\n    \"streetNumber\": \"15\",\n    \"flatNumber\": \"4\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/customers/business",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"customers",
+						"business"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getAllPrintouts",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "localhost:8080/printouts/",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"printouts",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "addUser",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\"username\":\"user3\",\n\"password\":\"password3\",\n\"email\":\"user3@email.com\",\n\"rolesNames\": [\"rola4\", \"rola5\"]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/users",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "addPrinter",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Drukarka 2\",\n    \"dimensions\": [\"20\", \"20\", \"30\"],\n    \"materials\": [\"PLA\", \"ABS\"]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/printers",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"printers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "addPrintersPlate",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"printerId\" : \"1813b154-753a-4baf-a9ac-eadc1967d0a0\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/plates",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"plates"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "addPrintout",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"category\": \"ABS\",\n    \"color\": \"yellow\",\n    \"price\": \"1\",\n    \"filling\": \"33\",\n    \"resolution\": \"5\",\n    \"permission\": \"true\",\n    \"dimensions\": [2,2,2]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/printouts",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"printouts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "addOrder",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"customerId\" : \"bd90af3f-631a-49f5-a005-ce3aaad4bcdf\",\n    \"printoutId\" : \"a508bb6a-114f-4884-b1c4-dba140fa9305\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/order",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"order"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getFilteredOrder",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/order/filtered?customer_id=c47c1a5e-aa20-4410-941f-105510788349&price=3&color=blue&category=ABS",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"order",
+						"filtered"
+					],
+					"query": [
+						{
+							"key": "customer_id",
+							"value": "c47c1a5e-aa20-4410-941f-105510788349"
+						},
+						{
+							"key": "price",
+							"value": "3"
+						},
+						{
+							"key": "color",
+							"value": "blue"
+						},
+						{
+							"key": "category",
+							"value": "ABS"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "addIndividualCustomer",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Jan\",\n    \"surname\": \"Kowalski\",\n    \"email\": \"jan@kowalski.com\",\n    \"phoneNumber\": \"321321321\",\n    \"city\": \"Kraków\",\n    \"postalCode\": \"12-123\",\n    \"street\": \"Długa\",\n    \"streetNumber\": \"122\",\n    \"flatNumber\": \"1\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/customers/individual",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"customers",
+						"individual"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getBusinessCustomers",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/customers/business",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"customers",
+						"business"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getIndividualCustomers",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/customers/individual",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"customers",
+						"individual"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getNotRealizedOrders",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/order/not_realized",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"order",
+						"not_realized"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getPlates",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/plates",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"plates"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getPlatesById",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/plates/f8f89fc1-5b38-4cd8-b731-02f74a4c6338",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"plates",
+						"f8f89fc1-5b38-4cd8-b731-02f74a4c6338"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getPrinters",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/printers",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"printers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getPrintersDimensionsById",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/printers/1813b154-753a-4baf-a9ac-eadc1967d0a0/dimensions",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"printers",
+						"1813b154-753a-4baf-a9ac-eadc1967d0a0",
+						"dimensions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getPrintouts",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/printouts",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"printouts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getUsers",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/users",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getUsersByRole",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/users/rola1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"users",
+						"rola1"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
