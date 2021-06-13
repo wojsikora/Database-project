@@ -14,7 +14,7 @@
 	<name>app</name>
 	<description>Fullstack app for ordering printed 3D models.</description>
 	<properties>
-		<java.version>16</java.version>
+		<java.version>14</java.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -56,6 +56,11 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<optional>true</optional>
 		</dependency>
 	</dependencies>
 
