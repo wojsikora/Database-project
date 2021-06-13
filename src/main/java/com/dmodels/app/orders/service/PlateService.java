@@ -39,7 +39,19 @@ public class PlateService {
     }
 
     public Plate newPlate(UUID printerId){
-        Order oldestOrder = orderService.getOldestOrder();
+        Printer printer = printerService.findById(printerId).orElse(null);
+        Collection<Order> oldestOrders = orderService.getOldestOrder();
+        Order oldestOrder = null;
+
+        while (oldestOrders.iterator().hasNext()){
+            Order tmp = oldestOrders.iterator().next();
+            assert printer != null;
+            if(tmp.getToPrinted().iterator().next().getDimensions().lowerThan(printer.getPlateDimensions())){
+                oldestOrder = tmp;
+            }
+        }
+
+        assert oldestOrder != null;
         Printout printout = (Printout) oldestOrder.getToPrinted().toArray()[0];
         oldestOrder.getToPrinted().remove(printout);
         oldestOrder.getAlreadyPrinted().add(printout);
@@ -52,7 +64,6 @@ public class PlateService {
         Set<Printout> printouts = new HashSet<>();
         printouts.add(printout);
 
-        Printer printer = printerService.findById(printerId).orElse(null);
 
         Plate plate = new Plate(printer, printouts);
 

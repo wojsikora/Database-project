@@ -13,6 +13,10 @@ public class Vector3D {
     double depth;
     double height;
 
+    public boolean lowerThan(Vector3D second){
+        return this.width < second.width && this.depth < second.depth && this.height < second.height;
+    }
+
     public Double[] toArray(){
         return new Double[] {this.width, this.depth, this.height};
     }

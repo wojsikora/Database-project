@@ -26,6 +26,7 @@ public class Printout {
     private String filling;
     private String resolution;
     private Boolean permission;
+    private Vector3D dimensions;
 
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "printouts")
     private Collection<Plate> plates = new HashSet<>();
@@ -33,13 +34,14 @@ public class Printout {
     @OneToOne
     private File file;
 
-    public Printout(Material material, String filling, String resolution, Boolean permission)
+    public Printout(Material material, String filling, String resolution, Boolean permission, Vector3D dimensions)
     {
         //this.id = id;
         this.material = material;
         this.filling = filling;
         this.resolution = resolution;
         this.permission = permission;
+        this.dimensions = dimensions;
         this.file = null;
     }
 }

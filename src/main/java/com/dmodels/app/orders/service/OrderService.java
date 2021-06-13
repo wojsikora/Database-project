@@ -10,10 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.aspectj.weaver.ast.Or;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
@@ -45,7 +42,7 @@ public class OrderService {
         return order;
     }
 
-    public Order getOldestOrder(){
+    public Collection<Order> getOldestOrder(){
         return orderRepository.findByImplementDateIsNullOrderByOrderDate();
     }
 }

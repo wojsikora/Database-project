@@ -4,6 +4,7 @@ package com.dmodels.app.api;
 import com.dmodels.app.orders.model.Material;
 import com.dmodels.app.orders.model.MaterialCategory;
 import com.dmodels.app.orders.model.Printout;
+import com.dmodels.app.orders.model.Vector3D;
 import com.dmodels.app.orders.service.PrintoutService;
 import lombok.Builder;
 import lombok.Data;
@@ -48,6 +49,7 @@ public class PrintoutRestController {
         private String filling;
         private String resolution;
         private Boolean permission;
+        private Vector3D dimensions;
 
 
         static PrintoutResponse fromPrintout(Printout printout) {
@@ -57,6 +59,7 @@ public class PrintoutRestController {
                     .filling(printout.getFilling())
                     .resolution(printout.getResolution())
                     .permission(printout.getPermission())
+                    .dimensions(printout.getDimensions())
                     .build();
 
 
@@ -74,6 +77,7 @@ public class PrintoutRestController {
         private String resolution;
         @NotNull
         private Boolean permission;
+        private Double[] dimensions;
 
         Printout toPrintout() {
             Material material = new Material(this.category, this.color, this.price);
@@ -82,7 +86,8 @@ public class PrintoutRestController {
                     material,
                     this.filling,
                     this.resolution,
-                    this.permission
+                    this.permission,
+                    new Vector3D(dimensions[0],dimensions[1], dimensions[2] )
             );
 
             return printout;

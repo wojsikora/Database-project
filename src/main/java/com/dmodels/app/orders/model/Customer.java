@@ -11,6 +11,7 @@ import java.util.UUID;
 @Entity
 @NoArgsConstructor
 @Inheritance(strategy = InheritanceType.JOINED)
+@Table(name = "customers")
 public abstract class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

@@ -3,6 +3,7 @@ package com.dmodels.app.orders.model;
 import lombok.*;
 
 import javax.persistence.Entity;
+import javax.persistence.Table;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
@@ -10,6 +11,7 @@ import javax.persistence.Entity;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@Table(name = "individual_customers")
 public class IndividualCustomer extends Customer {
     private String name;
     private String surname;
