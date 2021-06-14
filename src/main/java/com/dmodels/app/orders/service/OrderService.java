@@ -85,4 +85,14 @@ public class OrderService {
         }
         return results;
     }
+    
+     public Double getOrderValue(UUID id)
+    {
+
+        Order o = this.findOrderById(id).get();
+        Double value = 0.0;
+        for(Printout p : o.getToPrinted()) value+= printoutService.getPrintoutValue(p.getId());
+        for(Printout p : o.getAlreadyPrinted()) value+= printoutService.getPrintoutValue(p.getId());
+        return value;
+    }
 }
