@@ -43,4 +43,14 @@ public class PrintoutService {
     Collection<Printout> findByMaterialPriceLessThan(Double price){
         return printoutRepository.findByMaterial_PriceLessThan(price);
     }
+    
+    Double getPrintoutValue(UUID id)
+    {
+        Printout printout = this.findPrintoutById(id).get();
+        Double price = printout.getMaterial().getPrice();
+        Double[] dimensions = printout.getDimensions().toArray();
+        return dimensions[0]*dimensions[1]*dimensions[2]*price;
+
+
+    }
 }
