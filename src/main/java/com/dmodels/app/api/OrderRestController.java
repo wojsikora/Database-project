@@ -70,6 +70,14 @@ public class OrderRestController {
                 .map(OrderResponse::fromOrder)
                 .collect(Collectors.toList());
     }
+    
+    @GetMapping("/price/{id}")
+    public Double getOrderPrice(@PathVariable UUID id)
+    {
+
+        return orderService.getOrderValue(id);
+
+    }
 
 
     @PostMapping
